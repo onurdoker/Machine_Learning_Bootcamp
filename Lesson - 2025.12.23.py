@@ -39,20 +39,20 @@ plt.show()
 df_encoding = pd.get_dummies(df, columns=["sex", "smoker", "region"], drop_first=True)
 
 X = df_encoding.drop("charges", axis=1)
-Y = df_encoding["charges"]
+y = df_encoding["charges"]
 
-X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 
 # %%
 # ! 4. Model training
 model = LinearRegression()  # Create a linear regression model.
-model.fit(X_train, Y_train)  # Train the model.
-Y_pred = model.predict(X_test)  # Predict on the test set.
+model.fit(X_train, y_train)  # Train the model.
+y_pred = model.predict(X_test)  # Predict on the test set.
 
 # %%
 # ! 5. Evaluation
-r2 = r2_score(Y_test, Y_pred)
-mse = mean_squared_error(Y_test, Y_pred)
+r2 = r2_score(y_test, y_pred)
+mse = mean_squared_error(y_test, y_pred)
 print(f"R^2 score: {r2:.4f}")
 print(f"MSE: {mse:.2f}")
 
@@ -74,18 +74,18 @@ df_encoding_new["bmi_smoker"] = df_encoding_new["bmi"] * df_encoding_new["smoker
 df_encoding_new["is_obese"] = df_encoding_new["bmi"].apply(lambda x: 1 if x > 30 else 0)
 
 X_new = df_encoding_new.drop("charges", axis=1)
-Y_new = df_encoding_new["charges"]
+y_new = df_encoding_new["charges"]
 
-X_train_new, X_test_new, Y_train_new, Y_test_new = train_test_split(
-    X_new, Y_new, test_size=0.2
+X_train_new, X_test_new, y_train_new, y_test_new = train_test_split(
+    X_new, y_new, test_size=0.2
 )
 
 model_new = LinearRegression()  # Create a linear regression model.
-model_new.fit(X_train_new, Y_train_new)  # Train the model.
-Y_pred_new = model_new.predict(X_test_new)  # Predict on the test set.
+model_new.fit(X_train_new, y_train_new)  # Train the model.
+y_pred_new = model_new.predict(X_test_new)  # Predict on the test set.
 
-r2_new = r2_score(Y_test_new, Y_pred_new)
-mse_new = mean_squared_error(Y_test_new, Y_pred_new)
+r2_new = r2_score(y_test_new, y_pred_new)
+mse_new = mean_squared_error(y_test_new, y_pred_new)
 print(f"R^2 score: {r2_new:.4f}")
 print(f"MSE: {mse_new:.2f}")
 
